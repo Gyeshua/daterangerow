@@ -1,0 +1,38 @@
+daterangerow
+============
+<?php echo $form->dateRangeRow($model,'events_start_date',array(
+					//'hint' => 'Click inside! An even a date range field!.',
+					 'name' => 'events_start_date',
+					//'title'=>'',
+					'readOnly'=>true,
+					'prepend' => '<i class="icon-calendar"></i>',//'minDate'=>'3/12/2014',
+	'options' => array('callback' => 'js:function(start, end)
+	{ 
+			
+		var  SDate = start.toString("yyyy/MM/dd");
+		var  EDate = end.toString("yyyy/MM/dd");
+		var CDate=new Date();		
+		var endDate = Date.parse(EDate);
+		var startDate = Date.parse(SDate);
+
+		if(startDate < CDate)
+		{
+			$("#err").css("display","block");
+			$("#err").text("Please ensure that the start Date is greater than or equal to the Current Date.");
+			$("#err").fadeOut(3000);
+			$("#events_start_date").val("");
+			return false;
+		}
+		
+		if(endDate < CDate)
+		{
+			$("#err").css("display","block");
+			$("#err").text("Please ensure that the End Date is greater than or equal to the Current Date.");
+			$("#err").fadeOut(3000);
+			$("#events_start_date").val("");
+			return false;
+		}
+		
+		console.log(start.toString("MMMM d, yyyy") + " - " + end.toString("MMMM d, yyyy"));
+		}','title'=>'',
+		)));
